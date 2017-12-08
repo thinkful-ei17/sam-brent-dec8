@@ -7,6 +7,7 @@ const STORE = {
     { name: 'milk', checked: true },
     { name: 'bread', checked: false }
   ]
+
 };
 
 
@@ -97,20 +98,21 @@ function handleDeleteItemClicked() {
     console.log (itemIndex);
     itemDeleter(itemIndex);
     renderShoppingList();
-  // get the index of the 
-    
-
   });
 }
 
-// remove the whole li .js-item-index-element .data-item-index="${itemIndex} from the store
-// re-render the page.
+function filterCheckedItems(){
+  $('js-hide-checked-items').on('click',function(event){
+   console.log("the box is checked");
+  });
+// if hide-checked items is true, we hide it, 
+}
 
 
-// this function will be responsible for when users want to delete a shopping list
-// item
-//   console.log('`handleDeleteItemClicked` ran');
-// }
+// 1.user interface for hiding checked items
+// 2.
+
+
 
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the shopping list, and activating our individual functions
@@ -121,6 +123,7 @@ function handleShoppingList() {
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
+  filterCheckedItems();
 }
 
 // when the page loads, call `handleShoppingList`
