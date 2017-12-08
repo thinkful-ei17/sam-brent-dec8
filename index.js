@@ -1,11 +1,13 @@
 'use strict';
 
-const STORE = [
-  { name: 'apples', checked: false },
-  { name: 'oranges', checked: false },
-  { name: 'milk', checked: true },
-  { name: 'bread', checked: false }
-];
+const STORE = {
+  items:[
+    { name: 'apples', checked: false },
+    { name: 'oranges', checked: false },
+    { name: 'milk', checked: true },
+    { name: 'bread', checked: false }
+  ]
+};
 
 
 function generateItemElement(item, itemIndex, template) {
@@ -36,7 +38,7 @@ function generateShoppingItemsString(shoppingList) {
 function renderShoppingList() {
   // render the shopping list in the DOM
   console.log('`renderShoppingList` ran');
-  const shoppingListItemsString = generateShoppingItemsString(STORE);
+  const shoppingListItemsString = generateShoppingItemsString(STORE.items);
 
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
@@ -45,7 +47,7 @@ function renderShoppingList() {
 
 function addItemToShoppingList(itemName) {
   console.log(`Adding "${itemName}" to shopping list`);
-  STORE.push({ name: itemName, checked: false });
+  STORE.items.push({ name: itemName, checked: false });
 }
 
 function handleNewItemSubmit() {
@@ -61,7 +63,7 @@ function handleNewItemSubmit() {
 
 function toggleCheckedForListItem(itemIndex) {
   console.log('Toggling checked property for item at index ' + itemIndex);
-  STORE[itemIndex].checked = !STORE[itemIndex].checked;
+  STORE.items[itemIndex].checked = !STORE.items[itemIndex].checked;
 }
 
 
@@ -81,10 +83,11 @@ function handleItemCheckClicked() {
   });
 }
 function itemDeleter(itemIndex) {
-
+  STORE.items.splice(itemIndex,1);
+  console.log(itemIndex);
 }
  
- 
+//shopping - item - delete js - item - delete
 
 function handleDeleteItemClicked() {
   // listen on ul .js-shopping-list for click on a specific delete button class .js-item-delete
@@ -93,18 +96,19 @@ function handleDeleteItemClicked() {
     const itemIndex = getItemIndexFromElement(event.currentTarget);
     console.log (itemIndex);
     itemDeleter(itemIndex);
+    renderShoppingList();
   // get the index of the 
     
 
   });
 }
 
-  // remove the whole li .js-item-index-element .data-item-index="${itemIndex} from the store
-  // re-render the page.
+// remove the whole li .js-item-index-element .data-item-index="${itemIndex} from the store
+// re-render the page.
 
 
-  // this function will be responsible for when users want to delete a shopping list
-  // item
+// this function will be responsible for when users want to delete a shopping list
+// item
 //   console.log('`handleDeleteItemClicked` ran');
 // }
 
@@ -116,9 +120,8 @@ function handleShoppingList() {
   renderShoppingList();
   handleNewItemSubmit();
   handleItemCheckClicked();
-  itemDeleter();
   handleDeleteItemClicked();
 }
 
 // when the page loads, call `handleShoppingList`
-$(handleShoppingList)
+$(handleShoppingList);
