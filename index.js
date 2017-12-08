@@ -80,13 +80,24 @@ function handleItemCheckClicked() {
     renderShoppingList();
   });
 }
+function itemDeleter(itemIndex) {
 
+}
+ 
+ 
 
 function handleDeleteItemClicked() {
   // listen on ul .js-shopping-list for click on a specific delete button class .js-item-delete
   $('.js-shopping-list').on('click', '.js-item-delete', function (event){
-    console.log('delete item clicked ran');
+    console.log('handleDeleteItem ran');
+    const itemIndex = getItemIndexFromElement(event.currentTarget);
+    console.log (itemIndex);
+    itemDeleter(itemIndex);
+  // get the index of the 
+    
+
   });
+}
 
   // remove the whole li .js-item-index-element .data-item-index="${itemIndex} from the store
   // re-render the page.
@@ -94,8 +105,8 @@ function handleDeleteItemClicked() {
 
   // this function will be responsible for when users want to delete a shopping list
   // item
-  console.log('`handleDeleteItemClicked` ran');
-}
+//   console.log('`handleDeleteItemClicked` ran');
+// }
 
 // this function will be our callback when the page loads. it's responsible for
 // initially rendering the shopping list, and activating our individual functions
@@ -105,8 +116,9 @@ function handleShoppingList() {
   renderShoppingList();
   handleNewItemSubmit();
   handleItemCheckClicked();
+  itemDeleter();
   handleDeleteItemClicked();
 }
 
 // when the page loads, call `handleShoppingList`
-$(handleShoppingList);
+$(handleShoppingList)
