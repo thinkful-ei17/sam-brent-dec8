@@ -83,6 +83,15 @@ function handleItemCheckClicked() {
 
 
 function handleDeleteItemClicked() {
+  // listen on ul .js-shopping-list for click on a specific delete button class .js-item-delete
+  $('.js-shopping-list').on('click', '.js-item-delete', function (event){
+    console.log('delete item clicked ran');
+  });
+
+  // remove the whole li .js-item-index-element .data-item-index="${itemIndex} from the store
+  // re-render the page.
+
+
   // this function will be responsible for when users want to delete a shopping list
   // item
   console.log('`handleDeleteItemClicked` ran');
