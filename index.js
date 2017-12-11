@@ -5,9 +5,9 @@ const STORE = {
     { name: 'apples', checked: false },
     { name: 'oranges', checked: false },
     { name: 'milk', checked: true },
-    { name: 'bread', checked: false }
-  ]
-
+    { name: 'bread', checked: false } 
+  ],
+  hideItems: false,
 };
 
 
@@ -39,8 +39,14 @@ function generateShoppingItemsString(shoppingList) {
 function renderShoppingList() {
   // render the shopping list in the DOM
   console.log('`renderShoppingList` ran');
-  const shoppingListItemsString = generateShoppingItemsString(STORE.items);
-
+  let itemsToRender = STORE.items;
+  console.log('all store items', itemsToRender);
+  
+  if(STORE.hideItems){
+    itemsToRender = hideItems();
+    console.log('has hidden items', itemsToRender);
+  }
+  const shoppingListItemsString = generateShoppingItemsString(itemsToRender);
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
 }
@@ -101,12 +107,37 @@ function handleDeleteItemClicked() {
   });
 }
 
-function filterCheckedItems(){
-  $('js-hide-checked-items').on('click',function(event){
-   console.log("the box is checked");
+function handleHideCheckedItems(){
+  $('.js-hide-checked-items').on('click',function(event){
+    console.log('filterCheckedItems ran');
+    STORE.hideItems = !STORE.hideItems;
+    console.log('items should be hidden', STORE.hideItems);
+    renderShoppingList();
   });
-// if hide-checked items is true, we hide it, 
 }
+
+function hideItems() {
+  const itemsToRender = STORE.items.filter(item => !item.checked);
+  console.log('hideItems ran', itemsToRender);
+  return itemsToRender;
+}
+
+
+// function renderShoppingList() {
+//   // render the shopping list in the DOM
+//   console.log('`renderShoppingList` ran');
+//   const shoppingListItemsString = generateShoppingItemsString(STORE.items);
+
+//   // insert that HTML into the DOM
+//   $('.js-shopping-list').html(shoppingListItemsString);
+// }
+// go through each item in the stored list
+// if item.checked === true
+// don't render that item to the DOM
+
+  
+// if hide-checked items is true, we hide it, 
+
 
 
 // 1.user interface for hiding checked items
@@ -123,7 +154,7 @@ function handleShoppingList() {
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
-  filterCheckedItems();
+  handleHideCheckedItems();
 }
 
 // when the page loads, call `handleShoppingList`
